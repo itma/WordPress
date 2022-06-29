@@ -712,7 +712,24 @@ function translate_nooped_plural( $nooped_plural, $count, $domain = 'default' ) 
  */
 function load_textdomain( $domain, $mofile ) {
 	global $l10n, $l10n_unloaded;
+	
+	/**
+	 * Filters whether to load the text domain file loading.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @param bool   $plugin_override_locale_domain Whether to override the domain text loading. Default false.
+	 * @param string $domain   Text domain. Unique identifier for retrieving translated strings.
+	 */
+	if ( has_filter( 'locale_load_domain' ) ) {
+		$plugin_override_locale_domain = apply_filters( 'locale_load_domain', $domain );
 
+		if ( $plugin_override_locale_domain ) {
+			$l10n[ $domain ] = $plugin_override_locale_domain;
+			return true;
+		}
+	}	
+	
 	$l10n_unloaded = (array) $l10n_unloaded;
 
 	/**
@@ -769,6 +786,16 @@ function load_textdomain( $domain, $mofile ) {
 
 	$l10n[ $domain ] = &$mo;
 
+	/**
+	 * Fires after the MO translation file is processed.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @param string $domain Text domain. Unique identifier for retrieving translated strings.
+	 * @param string $mo MO object instance.
+	 */	
+	do_action( 'locale_imported', $domain, $mo );
+	
 	return true;
 }
 
