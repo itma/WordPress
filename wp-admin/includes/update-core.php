@@ -1296,9 +1296,9 @@ function update_core( $from, $to ) {
 
 		if ( @is_dir( $lang_dir ) ) {
 			$wp_lang_dir = $wp_filesystem->find_folder( $lang_dir );
-
+			$wp_distro_dir = $from . $distro . 'wp-content/languages/';
 			if ( $wp_lang_dir ) {
-				$result = copy_dir( $from . $distro . 'wp-content/languages/', $wp_lang_dir );
+				$result = copy_dir( $wp_distro_dir, $wp_lang_dir );
 
 				if ( is_wp_error( $result ) ) {
 					$result = new WP_Error(
@@ -1316,7 +1316,7 @@ function update_core( $from, $to ) {
 					 * @param array The source and destinated directory which contains the files being updated
 					 */
 					do_action( 'languages_updated', [
-						'from' => $from . $distro . 'wp-content/languages/',
+						'from' => $wp_distro_dir,
 						'to' => $wp_lang_dir
 					] );
 					
