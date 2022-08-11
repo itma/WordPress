@@ -7,7 +7,7 @@
  * @since 1.2.0
  */
 
- define( 'WP_l10n_CACHE_PREFIX', 'wp_l10n_' );
+define( 'WP_l10n_CACHE_PREFIX', 'wp_l10n_' );
 
 /**
  * Fires after the core update, plugin or theme.
