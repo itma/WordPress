@@ -1,6 +1,13 @@
 <?php
+/**
+ * Core Translation API
+ *
+ * @package WordPress
+ * @subpackage i18n
+ * @since 1.2.0
+ */
 
-define( 'WP_l10n_CACHE_PREFIX', 'wp_l10n_' );
+ define( 'WP_l10n_CACHE_PREFIX', 'wp_l10n_' );
 
 /**
  * Fires after the core update, plugin or theme.
@@ -11,14 +18,6 @@ define( 'WP_l10n_CACHE_PREFIX', 'wp_l10n_' );
  */
 add_action( 'languages_updated', 'delete_cached_textdomains' );
 add_action( 'upgrader_process_complete', 'delete_cached_textdomains' );
-
-/**
- * Core Translation API
- *
- * @package WordPress
- * @subpackage i18n
- * @since 1.2.0
- */
 
 /**
  * Retrieves the current locale.
